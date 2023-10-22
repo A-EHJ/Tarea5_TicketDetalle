@@ -12,8 +12,14 @@ namespace TicketDetalle.Shared
 
         public DateTime Fecha { get; set; } = DateTime.Now;
 
-        [Required(ErrorMessage = "El Asunto es requerido")]
-        public string? Asunto { get; set; }
+        [Required(ErrorMessage = "Es necesario completar el campo SolicitadoPor")]
+        public string? SolicitadoPor { get; set; } // Persona que solicita
+
+        [Required(ErrorMessage = "Es necesario completar el campo Asunto")]
+        public string? Asunto { get; set; } // Asunto del ticket
+
+        [Required(ErrorMessage = "Es necesario completar el campo Descripcion")]
+        public string? Descripcion { get; set; } // Descripción del ticket
 
         [ForeignKey("TicketId")]
         public ICollection<TicketsDetalle> TicketsDetalle { get; set; } = new List<TicketsDetalle>();
