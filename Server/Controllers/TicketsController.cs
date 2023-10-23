@@ -40,13 +40,15 @@ namespace TicketDetalle.Server.Controllers
           {
               return NotFound();
           }
-            var tickets = await _context.Tickets.FindAsync(id);
+            var tickets = await _context.Tickets
+            .Where(e => e.TicketId == id).Include(e => e.TicketsDetalle)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
 
             if (tickets == null)
             {
                 return NotFound();
             }
-
             return tickets;
         }
 
@@ -84,16 +86,17 @@ namespace TicketDetalle.Server.Controllers
         // POST: api/Tickets
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+
         public async Task<ActionResult<Tickets>> PostTickets(Tickets tickets)
         {
-          if (_context.Tickets == null)
-          {
-              return Problem("Entity set 'TicketContext.Tickets'  is null.");
-          }
-            _context.Tickets.Add(tickets);
-            await _context.SaveChangesAsync();
+           if (!TicketsExists(tickets.TicketId))
+                _context.Tickets.Add(tickets);
+           else
+                _context.Tickets.Update(tickets);
 
-            return CreatedAtAction("GetTickets", new { id = tickets.TicketId }, tickets);
+           await _context.SaveChangesAsync();
+
+            return Ok(tickets);
         }
 
         // DELETE: api/Tickets/5

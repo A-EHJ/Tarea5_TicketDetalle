@@ -27,7 +27,15 @@ namespace TicketDetalle.Server.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("Fecha")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SolicitadoPor")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("TicketId");

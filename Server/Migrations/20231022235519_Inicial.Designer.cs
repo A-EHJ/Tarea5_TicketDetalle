@@ -11,7 +11,7 @@ using TicketDetalle.Server.DAL;
 namespace TicketDetalle.Server.Migrations
 {
     [DbContext(typeof(TicketContext))]
-    [Migration("20231022222405_Inicial")]
+    [Migration("20231022235519_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -30,7 +30,15 @@ namespace TicketDetalle.Server.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("Fecha")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SolicitadoPor")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("TicketId");
