@@ -13,7 +13,7 @@
     <div class="container">
         <div class="card shadow-lg">
             <div class="card-header">
-                <h3>Registro de Tickets.</h3>
+                <h3 class="text-center">Registro de Tickets</h3>
             </div>
             <div class=card-body>
 
@@ -55,8 +55,8 @@
                 </div>
 
                 @*DETALLE*@
-                <fieldset class="border-success border border-0">
-                    <h3>Detalles del ticket</h3>
+                <fieldset class="border-secondary border border-1">
+                    <h3 class="text-center">Detalles del ticket</h3>
                     <div class="row m-1">
                         
                         @*Emisor *@
@@ -80,35 +80,35 @@
                     </div>
 
                     @*Tabla de detalles*@
-                    <hr />
-                    <table class="table table-bordered table-light m-1">
-                        <thead class="thead">
-                            <tr class="table">
-                                <th>Emisor</th>
-                                <th>Mensaje</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var detalle in Ticket.TicketsDetalle)
-                            {
-                                <tr>
-                                    <td>@detalle.Emisor</td>
-                                    <td>@detalle.Mensaje</td>
-                                    <td> <button @onclick="@(() => RemoverDetalle(detalle))"><i class="oi oi-trash" /> Eliminar</button>   </td>
+                    <div class="row m-1">
+                        <hr />
+                        <table class="table table-bordered table-light m-1">
+                            <thead class="thead">
+                                <tr class="table">
+                                    <th>Emisor</th>
+                                    <th>Mensaje</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <div class="row justify-content-between">
-                        <div class="col-4">
-                            <label>Cantidad de Emisores</label>
-                            <div class="input-group mb-3">
-                                <span class="form-control">@Ticket.TicketsDetalle.Count()</span>
+                            </thead>
+                            <tbody>
+                                @foreach (var detalle in Ticket.TicketsDetalle)
+                                {
+                                    <tr>
+                                        <td>@detalle.Emisor</td>
+                                        <td>@detalle.Mensaje</td>
+                                        <td> <button @onclick="@(() => RemoverDetalle(detalle))"><i class="oi oi-trash" /> Eliminar</button>   </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="row justify-content-between">
+                            <div class="col-4">
+                                <label>Cantidad de Emisores</label>
+                                <div class="input-group mb-3">
+                                    <span class="form-control">@Ticket.TicketsDetalle.Count()</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <hr />
                 </fieldset>
             </div>
 
@@ -175,9 +175,9 @@
         {
             var mensaje = new NotificationMessage
                 {
-                    Severity = NotificationSeverity.Success,
-                    Summary = "Guardado",
-                    Detail = "Se ha guardado correctamente.",
+                    Severity = NotificationSeverity.Error,
+                    Summary = "No se ha guardado el ticket",
+                    Detail = response.ReasonPhrase ?? "error",
                     Duration = 4000
                 };
             notificationService.Notify(mensaje);
@@ -188,9 +188,9 @@
         {
             var mensaje = new NotificationMessage
                 {
-                    Severity = NotificationSeverity.Error,
-                    Summary = "No se ha guardado el ticket",
-                    Detail = response.ReasonPhrase ?? "error",
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Se ha guardado el ticket",
+                    Detail = "Se ha creado su ticket",
                     Duration = 4000
                 };
             notificationService.Notify(mensaje);
